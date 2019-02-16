@@ -3,14 +3,23 @@ package br.com.userAccess.domain;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Entity
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private String login;
 	private String password;
@@ -62,6 +71,7 @@ public class User implements Serializable {
 	public void setClient(Client client) {
 		this.client = client;
 	}
+
 	
 	
 }
