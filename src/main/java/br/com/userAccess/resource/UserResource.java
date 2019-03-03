@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.userAccess.domain.User;
-import br.com.userAccess.domain.dto.UserConcatLoginEndName;
+import br.com.userAccess.domain.dto.UserDTO;
 import br.com.userAccess.service.UserService;
 
 /**
@@ -30,9 +30,9 @@ public class UserResource {
 	@Autowired
 	private UserService userService; 
 	@GetMapping
-	public ResponseEntity<List<UserConcatLoginEndName>> show() {
+	public ResponseEntity<List<UserDTO>> show() {
 		List<User> list = userService.all();
-		List<UserConcatLoginEndName> newList = list.stream().map(u -> new UserConcatLoginEndName(u)).collect(Collectors.toList());
+		List<UserDTO> newList = list.stream().map(u -> new UserDTO(u)).collect(Collectors.toList());
  		return ResponseEntity.ok(newList);
 	}
 	
@@ -43,7 +43,7 @@ public class UserResource {
 			@RequestParam(value = "orderBy", defaultValue = "login") String orderBy, 
 			@RequestParam(value = "direction", defaultValue = "DESC")String direction) {
 		Page<User> list = userService.paginateUser(page, linesPerPage, orderBy, direction);
-		Page<UserConcatLoginEndName> newList = list.map(u -> new UserConcatLoginEndName(u));
+		Page<UserDTO> newList = list.map(u -> new UserDTO(u));
 		return ResponseEntity.ok(newList);
 	}
 }

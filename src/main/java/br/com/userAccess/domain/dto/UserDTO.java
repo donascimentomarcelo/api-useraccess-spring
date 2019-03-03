@@ -11,24 +11,24 @@ import br.com.userAccess.domain.User;
  * @Package br.com.userAccess.domain.dto
  * @Desc 
  */
-public class UserConcatLoginEndName implements Serializable {
+public class UserDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private String login;
 	private String nameAndEmail;
 	
-	public UserConcatLoginEndName() {
+	public UserDTO() {
 		super();
 	}
 	
-	public UserConcatLoginEndName(User user) {
+	public UserDTO(User user) {
 		super();
 		this.login = user.getLogin();
 		this.nameAndEmail = user.getClient().getNome() + " - " + user.getClient().getEmail();
 	}
 	
-	public UserConcatLoginEndName(String login, String nameAndEmail) {
+	public UserDTO(String login, String nameAndEmail) {
 		super();
 		this.login = login;
 		this.nameAndEmail = nameAndEmail;
