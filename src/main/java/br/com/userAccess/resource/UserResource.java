@@ -43,6 +43,7 @@ public class UserResource {
 			@RequestParam(value = "orderBy", defaultValue = "login") String orderBy, 
 			@RequestParam(value = "direction", defaultValue = "DESC")String direction) {
 		Page<User> list = userService.paginateUser(page, linesPerPage, orderBy, direction);
-		return ResponseEntity.ok(list);
+		Page<UserConcatLoginEndName> newList = list.map(u -> new UserConcatLoginEndName(u));
+		return ResponseEntity.ok(newList);
 	}
 }
