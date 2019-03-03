@@ -2,7 +2,6 @@ package br.com.userAccess.domain.dto;
 
 import java.io.Serializable;
 
-import br.com.userAccess.domain.Client;
 import br.com.userAccess.domain.User;
 
 /**
