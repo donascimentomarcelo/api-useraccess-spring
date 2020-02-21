@@ -1,7 +1,9 @@
 version: '3'
 services: 
   user-access:
-    image: marcelojunin/user-access:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports: 
       - "8080:8080"
     depends_on: 
