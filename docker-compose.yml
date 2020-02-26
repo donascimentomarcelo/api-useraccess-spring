@@ -1,16 +1,30 @@
 version: '3'
-services: 
+services:  
+  database-mysql:
+      image: mysql:5.6
+      ports:
+          - 3307:3306
+      environment: 
+          - MYSQL_ROOT_PASSWORD=1234
+          - MYSQL_DATABASE=useraccess
+          - MYSQL_USER=root
+          - MYSQL_PASSWORD=1234
+      networks:
+          - my_network
+
   user-access:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports: 
-      - "8080:8080"
-    depends_on: 
-      - dababase-postgres
-  dababase-postgres:
-    image: postgres:10.4
-    environment: 
-      - POSTGRES_DB=db
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      image: useraccess:1.1
+      ports: 
+          - 8081:8080
+      environment:
+          - SPRING_DATASOURCE_URL=jdbc:mysql://database-mysql:3306/useraccess?useSSL=false
+      depends_on: 
+          - database-mysql
+      networks:
+          - my_network
+      links:
+          - database-mysql
+      
+networks:
+    my_network:
+      driver: bridge
