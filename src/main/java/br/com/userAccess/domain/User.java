@@ -1,15 +1,23 @@
 package br.com.userAccess.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.userAccess.domain.enums.Profile;
 
 @Entity
 public class User implements Serializable {
@@ -19,23 +27,27 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
-	private String login;
+	private String username;
 	private String password;
+	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PROFILES")
+	private Set<Integer> profiles = new HashSet<>();
 	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="user")
 	@JsonIgnore
 	private Client client;
 
 	public User() {
-		super();
+		
 	}
 
-	public User(Integer id, String login, String password, Client client) {
-		super();
+	public User(Integer id, String username, String password, Client client) {
 		this.id = id;
-		this.login = login;
+		this.username = username;
 		this.password = password;
 		this.client = client;
+		addProfiles(Profile.USER);
 	}
 
 	public Integer getId() {
@@ -46,12 +58,12 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -70,6 +82,16 @@ public class User implements Serializable {
 		this.client = client;
 	}
 
-	
+	public Set<Profile> getProfiles() {
+		return profiles
+					.stream()
+					.map(code -> Profile.toEnum(code))
+					.collect(Collectors.toSet());
+	}
+
+	public void addProfiles(Profile profile) {
+		profiles.add(profile.getCode());
+	}
+
 	
 }

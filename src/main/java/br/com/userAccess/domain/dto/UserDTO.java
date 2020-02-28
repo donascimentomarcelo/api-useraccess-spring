@@ -15,7 +15,7 @@ public class UserDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private String login;
+	private String username;
 	private String nameAndEmail;
 	
 	public UserDTO() {
@@ -24,21 +24,21 @@ public class UserDTO implements Serializable {
 	
 	public UserDTO(User user) {
 		super();
-		this.login = user.getLogin();
+		this.username = user.getUsername();
 		this.nameAndEmail = user.getClient().getNome() + " - " + user.getClient().getEmail();
 	}
 	
 	public UserDTO(String login, String nameAndEmail) {
 		super();
-		this.login = login;
+		this.username = login;
 		this.nameAndEmail = nameAndEmail;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getUsername() {
+		return username;
 	}
-	public void setLogin(String login) {
-		this.login = login;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getNameAndEmail() {
 		return nameAndEmail;

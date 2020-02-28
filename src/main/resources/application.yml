@@ -9,5 +9,7 @@ spring:
         username: root
         password: 1234
         driverClassName: com.mysql.jdbc.Driver
-     
 
+jwt:
+  secret: jwt__
+  expiration: 60000
