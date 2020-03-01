@@ -22,8 +22,6 @@ public class Client implements Serializable {
 	private Integer id;
 	private String email;
 	private String nome;
-	private String cpf;
-	private String sexo;
 	
 	@OneToOne
 	@JoinColumn(name="user_id")
@@ -31,17 +29,13 @@ public class Client implements Serializable {
 	private User user;
 
 	public Client() {
-		super();
+
 	}
 
-	public Client(String email, String nome, String cpf, String sexo, User user, Integer id) {
-		super();
+	public Client(Integer id, String email, String nome) {
+		this.id = id;
 		this.email = email;
 		this.nome = nome;
-		this.cpf = cpf;
-		this.sexo = sexo;
-		this.user = user;
-		this.id = id;
 	}
 
 	public Integer getId() {
@@ -66,22 +60,6 @@ public class Client implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
 	}
 
 	public User getUser() {

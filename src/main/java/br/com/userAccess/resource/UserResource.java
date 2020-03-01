@@ -1,7 +1,6 @@
 package br.com.userAccess.resource;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,12 +27,13 @@ import br.com.userAccess.service.UserService;
 public class UserResource {
 
 	@Autowired
-	private UserService userService; 
+	private UserService userService;
+	
 	@GetMapping
-	public ResponseEntity<List<UserDTO>> show() {
+	public ResponseEntity<List<User>> show() {
 		List<User> list = userService.all();
-		List<UserDTO> newList = list.stream().map(u -> new UserDTO(u)).collect(Collectors.toList());
- 		return ResponseEntity.ok(newList);
+//		List<UserDTO> newList = list.stream().map(u -> new UserDTO(u)).collect(Collectors.toList());
+ 		return ResponseEntity.ok(list);
 	}
 	
 	@GetMapping("/paginate")
