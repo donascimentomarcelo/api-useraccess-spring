@@ -3,13 +3,13 @@ package br.com.userAccess.config.security;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-@Service
+@Component
 public class JWTUtil {
 
 	@Value("${jwt.secret}")
@@ -27,7 +27,6 @@ public class JWTUtil {
 	}
 	
 	public boolean validToken(String token) {
-
 		Claims claims = getClaims(token);
 
 		if (claims != null) {
