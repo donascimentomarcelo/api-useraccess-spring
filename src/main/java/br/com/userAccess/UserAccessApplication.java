@@ -6,7 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
-import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.com.userAccess.domain.Client;
@@ -14,7 +13,6 @@ import br.com.userAccess.domain.User;
 import br.com.userAccess.repository.UserRepository;
 
 @SpringBootApplication
-@EnableZuulProxy
 @EnableEurekaClient
 @EnableFeignClients
 public class UserAccessApplication  implements CommandLineRunner {

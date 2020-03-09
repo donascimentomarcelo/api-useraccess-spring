@@ -13,7 +13,7 @@ import br.com.userAccess.config.security.UserSpringSecurity;
 import br.com.userAccess.service.UserService;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/user/auth")
 public class AuthController {
 
 	@Autowired

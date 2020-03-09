@@ -1,12 +1,12 @@
-server:  port: 8080  eureka:  instance:    hostname: localhost  client:    register-with-eureka: false    fetch-registry: false    service-url:      defaultZone: http://localhost:8761/eureka/
-spring:
+server:  port: 8080  eureka:  instance:    hostname: localhost  client:    register-with-eureka: true    fetch-registry: true    service-url:      defaultZone: http://localhost:8761/eureka/
+spring:    application:      name: user-service
     jpa:
         show-sql: true
         hibernate.ddl-auto: update
         database-platform: org.hibernate.dialect.MySQL5Dialect
 
     datasource:
-        url: "jdbc:mysql://localhost:3306/useraccess?useSSL=false"
+        url: "jdbc:mysql://localhost:3306/useraccess?useSSL=false&allowPublicKeyRetrieval=true"
         username: root
         password: 1234
         driverClassName: com.mysql.jdbc.Driver

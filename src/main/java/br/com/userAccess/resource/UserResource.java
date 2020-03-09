@@ -23,7 +23,7 @@ import br.com.userAccess.service.UserService;
  */
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user/users")
 public class UserResource {
 
 	@Autowired
