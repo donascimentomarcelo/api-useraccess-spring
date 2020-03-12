@@ -5,7 +5,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.com.userAccess.domain.Client;
@@ -14,7 +13,6 @@ import br.com.userAccess.repository.UserRepository;
 
 @SpringBootApplication
 @EnableEurekaClient
-@EnableFeignClients
 public class UserAccessApplication  implements CommandLineRunner {
 	
 	@Autowired 

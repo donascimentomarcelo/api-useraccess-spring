@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.userAccess.config.security.UserSpringSecurity;
 import br.com.userAccess.domain.User;
+import br.com.userAccess.exception.ObjectNotFoundException;
 import br.com.userAccess.repository.UserRepository;
 import br.com.userAccess.service.UserService;
 
@@ -51,5 +52,11 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username)
+					.orElseThrow(() -> new ObjectNotFoundException("username not found!"));
 	}
 }

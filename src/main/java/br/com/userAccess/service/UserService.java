@@ -22,4 +22,6 @@ public interface UserService {
 	Page<User> paginateUser(Integer page, Integer linesPerPage, String orderBy, String direction);
 
 	UserSpringSecurity authenticated();
+
+	User findByUsername(String username);
 }

@@ -4,16 +4,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.userAccess.config.security.JWTUtil;
 import br.com.userAccess.config.security.UserSpringSecurity;
+import br.com.userAccess.domain.User;
+import br.com.userAccess.domain.dto.UserDTO;
 import br.com.userAccess.service.UserService;
 
 @RestController
-@RequestMapping("/user/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
 	@Autowired
@@ -28,5 +31,11 @@ public class AuthController {
 		String token = jwtUtil.generateToken(usuarioLogado.getUsername());
 		response.addHeader("Authorization", "Bearer " + token);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PostMapping(value="/findByUsername")
+	public ResponseEntity<?> findByUsername(UserDTO dto) {
+		User user = userService.findByUsername(dto.getUsername());
+		return ResponseEntity.ok(user);
 	}
 }
