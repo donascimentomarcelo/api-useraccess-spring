@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import br.com.userAccess.config.security.UserSpringSecurity;
 import br.com.userAccess.domain.User;
 import br.com.userAccess.exception.ObjectNotFoundException;
 import br.com.userAccess.repository.UserRepository;
@@ -37,21 +35,6 @@ public class UserServiceImpl implements UserService {
 	public Page<User> paginateUser(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return userRepository.findAll(pageRequest);
-	}
-	
-	@Override
-	public UserSpringSecurity authenticated() {
-		try {
-
-			return (UserSpringSecurity) SecurityContextHolder
-						.getContext()
-						.getAuthentication()
-						.getPrincipal();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 	@Override

@@ -23,7 +23,7 @@ import br.com.userAccess.service.UserService;
  */
 
 @RestController
-@RequestMapping("/user/users")
+@RequestMapping("/users")
 public class UserResource {
 
 	@Autowired
@@ -45,5 +45,11 @@ public class UserResource {
 		Page<User> list = userService.paginateUser(page, linesPerPage, orderBy, direction);
 		Page<UserDTO> newList = list.map(u -> new UserDTO(u));
 		return ResponseEntity.ok(newList);
+	}
+	
+	@GetMapping(value="/findByUsername")
+	public ResponseEntity<?> findByUsername(@RequestParam(value = "username") String username) {
+		User user = userService.findByUsername(username);
+		return ResponseEntity.ok(user);
 	}
 }
