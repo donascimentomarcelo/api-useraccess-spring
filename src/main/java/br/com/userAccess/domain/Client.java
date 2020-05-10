@@ -2,11 +2,11 @@ package br.com.userAccess.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,8 +23,7 @@ public class Client implements Serializable {
 	private String email;
 	private String nome;
 	
-	@OneToOne
-	@JoinColumn(name="user_id")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "client")
 	@JsonIgnore
 	private User user;
 
@@ -32,8 +31,7 @@ public class Client implements Serializable {
 
 	}
 
-	public Client(Integer id, String email, String nome) {
-		this.id = id;
+	public Client(String email, String nome) {
 		this.email = email;
 		this.nome = nome;
 	}
