@@ -8,7 +8,7 @@ spring:    application:      name: user-service
     datasource:
         url: "jdbc:mysql://localhost:3306/useraccess?useSSL=false&allowPublicKeyRetrieval=true"
         username: root
-        password: 1234
+        password: root
         driverClassName: com.mysql.jdbc.Driver
 
 jwt:
