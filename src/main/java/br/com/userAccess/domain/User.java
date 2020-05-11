@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -13,9 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.userAccess.domain.enums.Profile;
 
@@ -34,16 +32,15 @@ public class User implements Serializable {
 	@CollectionTable(name="PROFILES")
 	private Set<Integer> profiles = new HashSet<>();
 	
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="user")
-	@JsonIgnore
+	@OneToOne
+	@JoinColumn(name="client_id")
 	private Client client;
 
 	public User() {
 		
 	}
 
-	public User(Integer id, String username, String password, Client client) {
-		this.id = id;
+	public User(String username, String password, Client client) {
 		this.username = username;
 		this.password = password;
 		this.client = client;

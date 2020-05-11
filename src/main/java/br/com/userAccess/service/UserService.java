@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import br.com.userAccess.config.security.UserSpringSecurity;
 import br.com.userAccess.domain.User;
 
 /**
@@ -20,8 +19,6 @@ public interface UserService {
 	List<User> all();
 
 	Page<User> paginateUser(Integer page, Integer linesPerPage, String orderBy, String direction);
-
-	UserSpringSecurity authenticated();
 
 	User findByUsername(String username);
 }

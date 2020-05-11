@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.com.userAccess.domain.Client;
 import br.com.userAccess.domain.User;
+import br.com.userAccess.repository.ClientRepository;
 import br.com.userAccess.repository.UserRepository;
 
 @SpringBootApplication
@@ -17,6 +18,9 @@ public class UserAccessApplication  implements CommandLineRunner {
 	
 	@Autowired 
 	private UserRepository userRepository;
+	
+	@Autowired
+	private ClientRepository clientRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -28,9 +32,9 @@ public class UserAccessApplication  implements CommandLineRunner {
 	@Override
 	public void run(String... arg0) throws Exception {
 		userRepository.deleteAll();
-		Client client = new Client(null, "crane@gmail.com", "kyle Crane");
-		User user = new User(null, "crane" , bCryptPasswordEncoder.encode("123"), client);
-		userRepository.save(user);
+		clientRepository.deleteAll();
+		Client client = clientRepository.save(new Client("crane@gmail.com", "kyle Crane"));
+		userRepository.save(new User("crane" , bCryptPasswordEncoder.encode("123"), client));
 	}
 
 }
