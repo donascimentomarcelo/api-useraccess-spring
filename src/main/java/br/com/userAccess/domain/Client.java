@@ -21,7 +21,7 @@ public class Client implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private String email;
-	private String nome;
+	private String name;
 	
 	@OneToOne
 	@JoinColumn(name="user_id")
@@ -32,10 +32,10 @@ public class Client implements Serializable {
 
 	}
 
-	public Client(Integer id, String email, String nome) {
+	public Client(Integer id, String email, String name) {
 		this.id = id;
 		this.email = email;
-		this.nome = nome;
+		this.name = name;
 	}
 
 	public Integer getId() {
@@ -54,12 +54,12 @@ public class Client implements Serializable {
 		this.email = email;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String name) {
+		this.name = name;
 	}
 
 	public User getUser() {

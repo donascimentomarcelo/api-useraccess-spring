@@ -25,7 +25,7 @@ public class UserDTO implements Serializable {
 	public UserDTO(User user) {
 		super();
 		this.username = user.getUsername();
-		this.nameAndEmail = user.getClient().getNome() + " - " + user.getClient().getEmail();
+		this.nameAndEmail = user.getClient().getName() + " - " + user.getClient().getEmail();
 	}
 	
 	public UserDTO(String login, String nameAndEmail) {
