@@ -32,6 +32,7 @@ public class UserAccessApplication  implements CommandLineRunner {
 	@Override
 	public void run(String... arg0) throws Exception {
 		userRepository.deleteAll();
+		clientRepository.deleteAll();
 		Client client = clientRepository.save(new Client("crane@gmail.com", "kyle Crane"));
 		User user = new User("crane" , bCryptPasswordEncoder.encode("123"), client);
 		userRepository.save(user);
