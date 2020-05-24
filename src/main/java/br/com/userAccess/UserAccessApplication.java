@@ -33,8 +33,8 @@ public class UserAccessApplication  implements CommandLineRunner {
 	public void run(String... arg0) throws Exception {
 		userRepository.deleteAll();
 		clientRepository.deleteAll();
-		Client client = clientRepository.save(new Client("crane@gmail.com", "kyle Crane"));
-		userRepository.save(new User("crane" , bCryptPasswordEncoder.encode("123"), client));
+		final User user = userRepository.save(new User("crane", bCryptPasswordEncoder.encode("123")));
+		clientRepository.save(new Client("crane@gmail.com", "kyle Crane", user));
 	}
 
 }
