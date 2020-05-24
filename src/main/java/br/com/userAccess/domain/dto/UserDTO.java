@@ -1,8 +1,9 @@
 package br.com.userAccess.domain.dto;
 
-import java.io.Serializable;
-
+import br.com.userAccess.domain.Client;
 import br.com.userAccess.domain.User;
+
+import java.io.Serializable;
 
 /**
  * @Author Marcelo Nascimento
@@ -16,37 +17,44 @@ public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String username;
-	private String nameAndEmail;
-	
-	public UserDTO() {
-		super();
-	}
-	
-	public UserDTO(User user) {
-		super();
-		this.username = user.getUsername();
-		this.nameAndEmail = user.getClient().getName() + " - " + user.getClient().getEmail();
-	}
-	
-	public UserDTO(String username, String nameAndEmail) {
-		super();
+	private String password;
+	private ClientDTO clientDTO;
+
+	public UserDTO() { }
+
+	public UserDTO(String username, String password) {
 		this.username = username;
-		this.nameAndEmail = nameAndEmail;
+		this.password = password;
 	}
 
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getNameAndEmail() {
-		return nameAndEmail;
-	}
-	public void setNameAndEmail(String nameAndEmail) {
-		this.nameAndEmail = nameAndEmail;
-	}
-	
-	
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public ClientDTO getClientDTO() {
+		return clientDTO;
+	}
+
+	public void setClientDTO(ClientDTO clientDTO) {
+		this.clientDTO = clientDTO;
+	}
+
+	public User fromEntity() {
+		final User user = new User(getUsername(), getPassword());
+		final Client client = new Client(getClientDTO().getEmail(), getClientDTO().getName(), user);
+		user.setClient(client);
+		return user;
+	}
 }

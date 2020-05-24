@@ -1,18 +1,16 @@
 package br.com.userAccess.resource;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import br.com.userAccess.domain.User;
 import br.com.userAccess.domain.dto.UserDTO;
 import br.com.userAccess.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
 
 /**
  * @Author Marcelo Nascimento
@@ -32,24 +30,46 @@ public class UserResource {
 	@GetMapping
 	public ResponseEntity<List<User>> show() {
 		List<User> list = userService.all();
-//		List<UserDTO> newList = list.stream().map(u -> new UserDTO(u)).collect(Collectors.toList());
  		return ResponseEntity.ok(list);
 	}
 	
 	@GetMapping("/paginate")
-	public ResponseEntity<?> paginate(			
+	public ResponseEntity<Page<User>> paginate(
 			@RequestParam(value = "page", defaultValue = "0") Integer page, 
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage, 
 			@RequestParam(value = "orderBy", defaultValue = "login") String orderBy, 
 			@RequestParam(value = "direction", defaultValue = "DESC")String direction) {
 		Page<User> list = userService.paginateUser(page, linesPerPage, orderBy, direction);
-		Page<UserDTO> newList = list.map(u -> new UserDTO(u));
-		return ResponseEntity.ok(newList);
+		return ResponseEntity.ok(list);
 	}
 	
 	@GetMapping(value="/findByUsername")
-	public ResponseEntity<?> findByUsername(@RequestParam(value = "username") String username) {
+	public ResponseEntity<User> findByUsername(@RequestParam(value = "username") String username) {
 		User user = userService.findByUsername(username);
 		return ResponseEntity.ok(user);
+	}
+
+	@GetMapping(value="/{id}")
+	public ResponseEntity<User> findOne(@PathVariable Integer id) {
+		User user = userService.findOne(id);
+		return ResponseEntity.ok(user);
+	}
+
+	@PostMapping
+	public ResponseEntity<Void> create(@RequestBody UserDTO dto) {
+		User user = dto.fromEntity();
+		user = userService.create(user);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(user.getId())
+				.toUri();
+		return ResponseEntity.created(uri).build();
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> update(@RequestBody UserDTO dto, @PathVariable Integer id) {
+		User user = dto.fromEntity();
+		userService.update(user, id);
+		return ResponseEntity.noContent().build();
 	}
 }

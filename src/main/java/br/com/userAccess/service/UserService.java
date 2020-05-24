@@ -1,10 +1,9 @@
 package br.com.userAccess.service;
 
-import java.util.List;
-
+import br.com.userAccess.domain.User;
 import org.springframework.data.domain.Page;
 
-import br.com.userAccess.domain.User;
+import java.util.List;
 
 /**
  * @Author Marcelo Nascimento
@@ -21,4 +20,10 @@ public interface UserService {
 	Page<User> paginateUser(Integer page, Integer linesPerPage, String orderBy, String direction);
 
 	User findByUsername(String username);
+
+	User create(User user);
+
+	User findOne(Integer id);
+
+	void update(User user, Integer id);
 }
