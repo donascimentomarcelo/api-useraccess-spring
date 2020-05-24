@@ -23,7 +23,6 @@ public class User implements Serializable {
 	@CollectionTable(name="PROFILES")
 	private Set<Integer> profiles = new HashSet<>();
 
-
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Client client;
 

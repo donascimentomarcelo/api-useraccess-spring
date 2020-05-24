@@ -4,11 +4,13 @@ import br.com.userAccess.domain.User;
 import br.com.userAccess.exception.ObjectNotFoundException;
 import br.com.userAccess.repository.UserRepository;
 import br.com.userAccess.service.UserService;
+import br.com.userAccess.config.security.UserSpringSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -69,5 +71,14 @@ public class UserServiceImpl implements UserService {
 
 	private String encodePassword(User user) {
 		return bCryptPasswordEncoder.encode(user.getPassword());
+	}
+
+	@Override
+	public UserSpringSecurity authenticated() {
+		try {
+			return (UserSpringSecurity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
