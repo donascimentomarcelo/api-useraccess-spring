@@ -1,15 +1,9 @@
 package br.com.userAccess.domain;
 
-import java.io.Serializable;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
@@ -22,8 +16,9 @@ public class Client implements Serializable {
 	private Integer id;
 	private String email;
 	private String name;
-	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "client")
+
+	@OneToOne
+	@JoinColumn(name="user_id")
 	@JsonIgnore
 	private User user;
 
@@ -31,9 +26,10 @@ public class Client implements Serializable {
 
 	}
 
-	public Client(String email, String name) {
+	public Client(String email, String name, User user) {
 		this.email = email;
 		this.name = name;
+		this.user = user;
 	}
 
 	public Integer getId() {
@@ -56,7 +52,7 @@ public class Client implements Serializable {
 		return name;
 	}
 
-	public void setNome(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 

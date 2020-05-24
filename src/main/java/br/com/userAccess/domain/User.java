@@ -1,21 +1,12 @@
 package br.com.userAccess.domain;
 
+import br.com.userAccess.domain.enums.Profile;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
-import br.com.userAccess.domain.enums.Profile;
 
 @Entity
 public class User implements Serializable {
@@ -31,19 +22,18 @@ public class User implements Serializable {
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name="PROFILES")
 	private Set<Integer> profiles = new HashSet<>();
-	
-	@OneToOne
-	@JoinColumn(name="client_id")
+
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Client client;
 
 	public User() {
 		
 	}
 
-	public User(String username, String password, Client client) {
+	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
-		this.client = client;
 		addProfiles(Profile.USER);
 	}
 
@@ -90,5 +80,9 @@ public class User implements Serializable {
 		profiles.add(profile.getCode());
 	}
 
-	
+	public Client fromClient() {
+		final User user = new User();
+		user.setId(getId());
+		return new Client(getClient().getEmail(), getClient().getName(), user);
+	}
 }
