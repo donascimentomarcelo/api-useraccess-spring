@@ -11,7 +11,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.List;
 
 /**
  * @Author Marcelo Nascimento
@@ -53,6 +52,12 @@ public class UserResource {
 	@GetMapping(value="/{id}")
 	public ResponseEntity<User> findOne(@PathVariable Integer id) {
 		User user = userService.findOne(id);
+		return ResponseEntity.ok(user);
+	}
+
+	@GetMapping(value="/myProfile")
+	public ResponseEntity<User> myProfile() {
+		User user = userService.myProfile();
 		return ResponseEntity.ok(user);
 	}
 

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class JWTAuthorizationFilter  extends BasicAuthenticationFilter {
+public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     private JWTUtil jwtUtil;
 
@@ -32,10 +32,10 @@ public class JWTAuthorizationFilter  extends BasicAuthenticationFilter {
 
         String header = request.getHeader("Authorization");
 
-        if(header != null && header.startsWith("Bearer ")) {
+        if (header != null && header.startsWith("Bearer ")) {
             UsernamePasswordAuthenticationToken auth = getAuthentication(header.substring(7));
 
-            if(auth != null) {
+            if (auth != null) {
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
         }
@@ -44,7 +44,7 @@ public class JWTAuthorizationFilter  extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(String token) {
-        if(jwtUtil.validToken(token)) {
+        if (jwtUtil.validToken(token)) {
             String username = jwtUtil.getUsername(token);
             UserDetails user = userDetailsService.loadUserByUsername(username);
             return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());

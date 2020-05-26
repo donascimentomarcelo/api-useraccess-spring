@@ -45,8 +45,7 @@ public class JWTUtil {
 
         try {
             return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }
@@ -55,7 +54,7 @@ public class JWTUtil {
 
         Claims claims = getClaims(token);
 
-        if(claims != null) {
+        if (claims != null) {
             return claims.getSubject();
         }
         return null;
