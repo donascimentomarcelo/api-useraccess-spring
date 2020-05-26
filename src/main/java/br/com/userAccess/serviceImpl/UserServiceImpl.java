@@ -1,6 +1,5 @@
 package br.com.userAccess.serviceImpl;
 
-import br.com.userAccess.config.security.UserSpringSecurity;
 import br.com.userAccess.domain.User;
 import br.com.userAccess.exception.ObjectNotFoundException;
 import br.com.userAccess.repository.UserRepository;
@@ -75,7 +74,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User myProfile() {
-		final UserSpringSecurity authenticated = Utils.authenticated();
-		return findOne(authenticated.getId());
+		return findOne(Utils.authenticated().getId());
 	}
 }
