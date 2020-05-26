@@ -1,5 +1,6 @@
 package br.com.userAccess.config.security;
 
+import br.com.userAccess.constants.JWTConst;
 import br.com.userAccess.domain.dto.CredenciaisDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,7 +41,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             return authentication;
 
-        }catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -51,9 +52,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
 
-        String email = ((UserSpringSecurity) auth.getPrincipal()).getUsername();
-        String token = jwtUtil.generateToken(email);
-        res.addHeader("Authorization", "Bearer " + token);
-        res.addHeader("access-control-expose-headers", "Authorization");
+        final UserSpringSecurity user = (UserSpringSecurity) auth.getPrincipal();
+        String token = jwtUtil.generateToken(user.getUsername());
+        res.addHeader(JWTConst.AUTHORIZARION, JWTConst.BEARER + token);
+        res.addHeader(JWTConst.ACCESS_CONTROL_EXPOSE_HEADERS, JWTConst.AUTHORIZARION);
     }
 }

@@ -1,6 +1,5 @@
 package br.com.userAccess.service;
 
-import br.com.userAccess.config.security.UserSpringSecurity;
 import br.com.userAccess.domain.User;
 import org.springframework.data.domain.Page;
 
@@ -28,5 +27,5 @@ public interface UserService {
 
 	void update(User user, Integer id);
 
-	UserSpringSecurity authenticated();
+	User myProfile();
 }
