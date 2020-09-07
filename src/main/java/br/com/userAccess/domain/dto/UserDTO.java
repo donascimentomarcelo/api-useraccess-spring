@@ -53,7 +53,7 @@ public class UserDTO implements Serializable {
 
 	public User fromEntity() {
 		final User user = new User(getUsername(), getPassword());
-		final Client client = new Client(getClientDTO().getEmail(), getClientDTO().getName(), user);
+		final Client client = new Client(user.getClient().getEmail(), user.getClient().getName(), user);
 		user.setClient(client);
 		return user;
 	}
